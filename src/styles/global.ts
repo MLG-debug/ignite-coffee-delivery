@@ -9,9 +9,9 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme['gray-300']};
+    color: ${({ theme }) => theme['brown-300']};
     -webkit-font-smoothing: antialiased;
-  }
+  }  
 
   :focus {
     outline: 0;
@@ -19,7 +19,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body, input, textarea, button {
-    font-family: 'Robot', sans-serif;
+    /* font-family: 'Baloo 2', cursive; */
+    font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 1rem;
   }

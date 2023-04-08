@@ -1,12 +1,13 @@
 import React from 'react'
 import { Hero } from '../../components/Hero'
-import { Coffees } from '../../components/Coffees'
+import { Coffees } from './components/Coffees'
+import { HomeContainer } from './styles'
 
 export const Home = () => {
   return (
-    <div>
+    <HomeContainer>
       <Hero />
       <Coffees />
-    </div>
+    </HomeContainer>
   )
 }
