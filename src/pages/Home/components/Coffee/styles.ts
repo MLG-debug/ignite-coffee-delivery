@@ -88,7 +88,6 @@ export const QuantityWrapper = styled.div`
     align-items: center;
     min-width: 22px;
     color: ${({ theme }) => theme['brown-400']};
-    font-weight: bold;
   }
 
   button {

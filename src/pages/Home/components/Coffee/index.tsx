@@ -52,7 +52,7 @@ export const Coffee = ({
       <BuyWrapper>
         <PriceWrapper>
           <span>R$</span>
-          <strong>{price}</strong>
+          <strong>{price.toLocaleString('pt-BR', { style: 'decimal', maximumFractionDigits: 2, minimumFractionDigits: 2})}</strong>
         </PriceWrapper>
         <QuantityWrapper>
           <button onClick={decreaseQuantity}>-</button>

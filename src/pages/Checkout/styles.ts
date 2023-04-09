@@ -7,11 +7,36 @@ export const CheckoutContainer = styled.div`
 `
 
 export const CheckoutWrapper = styled.div`
-  margin-top: 40px;
+  padding: 40px 0px;
   display: flex;
   flex: 1;
   justify-content: space-between;
   max-width: 70rem;
+`
+
+export const EmptyTitle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px 0px;
+  gap: 0.5rem;
+  display: flex;
+
+  svg {
+    color: ${({ theme }) => theme["yellow-500"]}
+  }
+
+  h5 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  h3 {
+    font-size: 0.875rem;
+    font-weight: normal;
+  }
 `
 
 export const SectionWrapper = styled.div`
@@ -157,7 +182,7 @@ export const PaymentTitle = styled.div`
 
 export const PaymentButtons = styled.div`
   display: flex;
-  gap: 12px;
+  justify-content: space-between;
 
   button {
     font-size: 0.875rem;
@@ -186,7 +211,7 @@ export const PaymentButtons = styled.div`
 export const CartWrapper = styled.div`
   border-radius: 6px 44px 6px 44px ;
   background-color: ${({ theme }) => theme["gray-100"]};
-  padding: 40px;
+  padding: 24px 40px 40px 40px;
 `
 
 export const CoffeesWrapper = styled.div`
@@ -201,8 +226,6 @@ export const CoffeesWrapper = styled.div`
 
 export const CoffeeInfos = styled.div`
   display: flex;  
-  /* padding: 24px 0px; */
-  margin-right: 50px;
 
   img {
     margin-right: 20px;
@@ -216,14 +239,13 @@ export const CoffeeInfos = styled.div`
 
 export const CoffeeWrapper = styled.div`
   display: flex;
-  /* align-items: center; */
   justify-content: space-between;
   padding: 24px 0px;
-
+  gap: 24px;
 `
 
 export const PriceWrapper = styled.div`
-  padding: 12px 0px;
+  padding: 24px 0px;
 
   h6 {
     font-size: 0.875rem;
@@ -264,5 +286,45 @@ export const ButtonWrapper = styled.div`
       box-shadow: 0 0 0 2px ${({ theme }) => theme['yellow-500']};
     }
 
+  }
+`
+
+export const CoffeeContent = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  h5 {
+    font-weight: 400;
+  }
+`
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`
+
+export const RemoveButtonWrapper = styled.div`
+  button {
+    outline: none;
+    border: none;
+    background-color: ${({ theme }) => theme["gray-300"]};
+    color: ${({ theme }) => theme["brown-300"]};
+    border-radius: 6px;
+    font-size: 0.875rem;
+    padding: 8px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+
+  svg {
+    color: ${({theme}) => theme["purple-300"]};
+    margin-right: 4px;
   }
 `

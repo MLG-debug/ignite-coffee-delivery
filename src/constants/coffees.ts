@@ -3,7 +3,7 @@ export interface ICoffee {
   name: string
   description: string
   types: string[]
-  price: string
+  price: number
   image: string
 }
 
@@ -13,7 +13,7 @@ export const coffees: ICoffee[] = [
     name: 'Expresso Tradicional',
     description: 'O tradicional café feito com água quente e grãos moídos',
     types: ['tradicional'],
-    price: '4,90',
+    price: 4.90,
     image: '/images/Coffees/Expresso.png',
   },
   {
@@ -21,7 +21,7 @@ export const coffees: ICoffee[] = [
     name: 'Expresso Americano',
     description: 'Expresso diluído, menos intenso que o tradicional',
     types: ['tradicional'],
-    price: '6,90',
+    price: 6.90,
     image: '/images/Coffees/Americano.png',
   },
   {
@@ -29,7 +29,7 @@ export const coffees: ICoffee[] = [
     name: 'Expresso Cremoso',
     description: 'Café expresso tradicional com espuma cremosa',
     types: ['tradicional'],
-    price: '8,90',
+    price: 8.90,
     image: '/images/Coffees/Expresso Cremoso.png',
   },
   {
@@ -37,7 +37,7 @@ export const coffees: ICoffee[] = [
     name: 'Expresso Gelado',
     description: 'Bebida preparada com café expresso e cubos de gelo',
     types: ['tradicional', 'gelado'],
-    price: '9,90',
+    price: 9.90,
     image: '/images/Coffees/Café Gelado.png',
   },
   {
@@ -45,7 +45,7 @@ export const coffees: ICoffee[] = [
     name: 'Café com Leite',
     description: 'Meio a meio de expresso tradicional com leite vaporizado',
     types: ['tradicional', 'com leite'],
-    price: '9,90',
+    price: 9.90,
     image: '/images/Coffees/Café com Leite.png',
   },
   {
@@ -54,7 +54,7 @@ export const coffees: ICoffee[] = [
     description:
       'Uma dose de café expresso com o dobro de leite e espuma cremosa',
     types: ['tradicional', 'com leite'],
-    price: '11,90',
+    price: 11.90,
     image: '/images/Coffees/Latte.png',
   },
   {
@@ -63,7 +63,7 @@ export const coffees: ICoffee[] = [
     description:
       'Bebida com canela feita de doses iguais de café, leite e espuma',
     types: ['tradicional', 'com leite'],
-    price: '11,90',
+    price: 11.90,
     image: '/images/Coffees/Capuccino.png',
   },
   {
@@ -72,7 +72,7 @@ export const coffees: ICoffee[] = [
     description:
       'Café expresso misturado com um pouco de leite quente e espuma',
     types: ['tradicional', 'com leite'],
-    price: '12,90',
+    price: 12.90,
     image: '/images/Coffees/Macchiato.png',
   },
   {
@@ -80,7 +80,7 @@ export const coffees: ICoffee[] = [
     name: 'Mochaccino',
     description: 'Café expresso com calda de chocolate, pouco leite e espuma',
     types: ['tradicional', 'com leite'],
-    price: '13,90',
+    price: 13.90,
     image: '/images/Coffees/Mochaccino.png',
   },
   {
@@ -88,7 +88,7 @@ export const coffees: ICoffee[] = [
     name: 'Chocolate Quente',
     description: 'Bebida feita com chocolate dissolvido no leite quente e café',
     types: ['especial', 'com leite'],
-    price: '12,90',
+    price: 12.90,
     image: '/images/Coffees/Chocolate Quente.png',
   },
   {
@@ -97,7 +97,7 @@ export const coffees: ICoffee[] = [
     description:
       'Drink gelado de café expresso com rum, creme de leite e hortelã',
     types: ['especial', 'alcoólico', 'gelado'],
-    price: '12,90',
+    price: 12.90,
     image: '/images/Coffees/Cubano.png',
   },
   {
@@ -105,7 +105,7 @@ export const coffees: ICoffee[] = [
     name: 'Havaiano',
     description: 'Bebida adocicada preparada com café e leite de coco',
     types: ['especial'],
-    price: '15,90',
+    price: 15.90,
     image: '/images/Coffees/Havaiano.png',
   },
   {
@@ -113,7 +113,7 @@ export const coffees: ICoffee[] = [
     name: 'Árabe',
     description: 'Bebida preparada com grãos de café árabe e especiarias',
     types: ['especial'],
-    price: '15,90',
+    price: 15.90,
     image: '/images/Coffees/Árabe.png',
   },
   {
@@ -121,7 +121,7 @@ export const coffees: ICoffee[] = [
     name: 'Irlandês',
     description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
     types: ['especial', 'alcoólico'],
-    price: '18,90',
+    price: 18.90,
     image: '/images/Coffees/Irlandês.png',
   },
 ]

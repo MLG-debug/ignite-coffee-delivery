@@ -1,13 +1,42 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from 'phosphor-react'
-import React from 'react'
+import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money, ShoppingCartSimple } from 'phosphor-react'
+import React, { useState } from 'react'
 import { ICoffee, coffees as coffeesData } from '../../constants/coffees'
-import { AddressInputs, AddressTitle, AddressWrapper, ButtonWrapper, CartWrapper, CheckoutContainer, CheckoutWrapper, CoffeeInfos, CoffeeWrapper, CoffeesWrapper, PaymentButtons, PaymentTitle, PaymentWrapper, PriceWrapper, SectionWrapper } from './styles'
+import { AddressInputs, AddressTitle, AddressWrapper, ButtonWrapper, CartWrapper, CheckoutContainer, CheckoutWrapper, CoffeeInfos, CoffeeWrapper, CoffeesWrapper, EmptyTitle, PaymentButtons, PaymentTitle, PaymentWrapper, PriceWrapper, SectionWrapper } from './styles'
+import { SelectedCoffee } from './components/SelectedCoffee'
+import { getRandomInt } from '../../helpers/getRandomInt'
+
+export interface ISelectedCoffee extends ICoffee {
+  quantity: number
+}
+
+const samples: ISelectedCoffee[] = [
+  {
+    ...coffeesData[6],
+    quantity: 3
+  },
+  {
+    ...coffeesData[3],
+    quantity: 4
+  },
+  {
+    ...coffeesData[8],
+    quantity: 2
+  },
+  {
+    ...coffeesData[10],
+    quantity: 1
+  },
+  {
+    ...coffeesData[2],
+    quantity: 5
+  },
+]
 
 export const Checkout = () => {
-
-  const coffees = [coffeesData[0], coffeesData[5]]
+  const [selectedCoffees, setSelectedCoffees] = useState<ISelectedCoffee[]>(samples)
 
   let finishedOrder = false
+  let deliveryPrice = 0.3 * getRandomInt(30)
 
   if (finishedOrder) {
     return (
@@ -16,6 +45,18 @@ export const Checkout = () => {
           Pedido finalizado!
         </h1>
       </div>
+    )
+  }
+
+  if (!selectedCoffees.length) {
+    return (
+      <CheckoutContainer>
+        <EmptyTitle>
+          <ShoppingCartSimple size={22} />
+          <h5>Seu carrinho está vazio</h5>
+          <h3>Não deixe de tomar o seu precioso café</h3>
+        </EmptyTitle>
+      </CheckoutContainer>
     )
   }
 
@@ -66,23 +107,11 @@ export const Checkout = () => {
           <CartWrapper>
             <CoffeesWrapper>
               {
-                coffees.map((coffee) => (
-                  <>
-                    <CoffeeWrapper key={coffee.id}>
-                      <CoffeeInfos>
-                        <div>
-                          <img src={coffee.image} width={64} />
-                        </div>
-                        <div>
-                          <h5>{coffee.name}</h5>
-                        </div>
-                      </CoffeeInfos>
-                      <div>
-                        <h6>R$ {coffee.price}</h6>
-                      </div>
-                    </CoffeeWrapper>
+                selectedCoffees.map((coffee) => (
+                  <div key={coffee.id}>
+                    <SelectedCoffee {...coffee} />
                     <hr />
-                  </>
+                  </div>
                 ))
               }
             </CoffeesWrapper>
@@ -93,7 +122,7 @@ export const Checkout = () => {
               </div>
               <div>
                 <h6>Entrega</h6>
-                <h5>R$ 9,70</h5>
+                <h5>{deliveryPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL'})}</h5>
               </div>
               <div>
                 <h3><strong>Total</strong></h3>
