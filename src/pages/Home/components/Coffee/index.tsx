@@ -24,7 +24,9 @@ export const Coffee = ({
   const [quantity, setQuantity] = useState(1)
 
   const increaseQuantity = () => {
-    setQuantity((state) => state + 1)
+    if (quantity < 99) {
+      setQuantity((state) => state + 1)
+    }
   }
 
   const decreaseQuantity = () => {
@@ -35,16 +37,18 @@ export const Coffee = ({
 
   return (
     <CoffeeContainer>
-      <CoffeeImageWrapper>
-        <img src={image} alt="imagem representativa do café" />
-      </CoffeeImageWrapper>
-      <TypesWrapper>
-        {types.map((type) => (
-          <span key={type}>{type}</span>
-        ))}
-      </TypesWrapper>
-      <CoffeeName>{name}</CoffeeName>
-      <CoffeeDescription>{description}</CoffeeDescription>
+      <div>
+        <CoffeeImageWrapper>
+          <img src={image} alt="imagem representativa do café" />
+        </CoffeeImageWrapper>
+        <TypesWrapper>
+          {types.map((type) => (
+            <span key={type}>{type}</span>
+          ))}
+        </TypesWrapper>
+        <CoffeeName>{name}</CoffeeName>
+        <CoffeeDescription>{description}</CoffeeDescription>
+      </div>
       <BuyWrapper>
         <PriceWrapper>
           <span>R$</span>

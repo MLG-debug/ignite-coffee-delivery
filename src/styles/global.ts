@@ -14,8 +14,9 @@ export const GlobalStyle = createGlobalStyle`
   }  
 
   :focus {
+    border-radius: 6px;
     outline: 0;
-    box-shadow: 0 0 0 2px ${({ theme }) => theme['brown-300']};
+    box-shadow: 0 0 0 2px ${({ theme }) => theme['purple-300']};
   }
 
   body, input, textarea, button {

@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-export const CoffeesWrapper = styled.div`
+export const CoffeesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
-`
-export const CoffeesContainer = styled.div`
+  align-items: center;
+  flex-direction: column;
+
   h1 {
     font-size: 32px;
     font-family: 'Baloo 2', cursive;
@@ -13,4 +13,15 @@ export const CoffeesContainer = styled.div`
 
     margin-bottom: 34px;
   }
+`
+export const CoffeesWrapper = styled.div`
+  max-width: 70rem;
+`
+
+export const ItemsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  align-items: center;
+  gap: 32px;
 `

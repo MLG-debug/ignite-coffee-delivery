@@ -2,9 +2,14 @@ import styled from 'styled-components'
 
 export const CoffeeContainer = styled.div`
   max-width: 256px;
+  min-height: 310px;
   background-color: ${({ theme }) => theme['gray-100']};
   padding: 20px 24px;
   border-radius: 6px 36px 6px 36px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `
 
 export const CoffeeImageWrapper = styled.div`
@@ -78,9 +83,12 @@ export const QuantityWrapper = styled.div`
   border-radius: 6px;
 
   span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 22px;
     color: ${({ theme }) => theme['brown-400']};
-    margin-left: 6px;
-    margin-right: 6px;
+    font-weight: bold;
   }
 
   button {
@@ -91,14 +99,8 @@ export const QuantityWrapper = styled.div`
     font-size: 20px;
     cursor: pointer;
 
-    width: 36px;
+    width: 24px;
     height: 36px;
-
-    &:focus {
-      border: none;
-      outline: 2px solid ${({ theme }) => theme['purple-300']};
-      border-radius: 6px;
-    }
   }
 `
 
@@ -115,11 +117,9 @@ export const BuyButton = styled.button`
   border-radius: 6px;
   cursor: pointer;
 
+  transition: 200ms;
+
   &:hover {
     background-color: ${({ theme }) => theme['purple-500']};
-  }
-
-  &:focus {
-    outline: 2px solid ${({ theme }) => theme['purple-300']};
   }
 `
