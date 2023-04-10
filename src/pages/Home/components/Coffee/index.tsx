@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ICoffee } from '../../../../constants/coffees'
 import { ShoppingCartSimple } from 'phosphor-react'
 import {
@@ -12,6 +12,7 @@ import {
   BuyButton,
   CoffeeImageWrapper,
 } from './styles'
+import { CartContext } from '../../../../contexts/CartContext'
 
 export const Coffee = ({
   description,
@@ -23,6 +24,8 @@ export const Coffee = ({
 }: ICoffee) => {
   const [quantity, setQuantity] = useState(1)
 
+  const { addCoffeeToCart } = useContext(CartContext)
+
   const increaseQuantity = () => {
     if (quantity < 99) {
       setQuantity((state) => state + 1)
@@ -33,6 +36,10 @@ export const Coffee = ({
     if (quantity > 1) {
       setQuantity((state) => state - 1)
     }
+  }
+
+  const handleAddCoffeeToCart = () => {
+    addCoffeeToCart(id, quantity)
   }
 
   return (
@@ -59,7 +66,7 @@ export const Coffee = ({
           <span>{quantity}</span>
           <button onClick={increaseQuantity}>+</button>
         </QuantityWrapper>
-        <BuyButton>
+        <BuyButton onClick={handleAddCoffeeToCart}>
           <ShoppingCartSimple size={20} weight="fill" />
         </BuyButton>
       </BuyWrapper>

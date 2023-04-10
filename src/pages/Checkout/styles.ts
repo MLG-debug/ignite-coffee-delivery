@@ -85,7 +85,7 @@ export const AddressTitle = styled.div`
   }
 `
 
-export const AddressInputs = styled.div`
+export const AddressInputs = styled.form`
   display: grid;
   /* grid-template-columns: 200px 348px 276px; */
   grid-template-columns: 1fr 1.25fr 0.5fr;
@@ -200,13 +200,15 @@ export const PaymentButtons = styled.div`
     }
 
     outline: 0;
-    border: none;
-    background-color: ${({ theme }) => theme["gray-300"]};
     min-width: 180px;
-
   }
 
 `
+
+export const PaymentButton = styled.button`
+    background-color: ${({ theme, value }) => value === 'true' ? theme["purple-100"]: theme["gray-300"]};
+    border: 1px solid ${({ theme, value }) => value === 'true' ? theme["purple-300"] : 'transparent'};
+  `
 
 export const CartWrapper = styled.div`
   border-radius: 6px 44px 6px 44px ;
@@ -220,7 +222,7 @@ export const CoffeesWrapper = styled.div`
   justify-content: center;
 
   hr{
-    border: 1px solid ${({theme}) => theme["gray-300"]};
+    border: 1px solid ${({ theme }) => theme["gray-300"]};
   }
 `
 
@@ -324,7 +326,78 @@ export const RemoveButtonWrapper = styled.div`
   }
 
   svg {
-    color: ${({theme}) => theme["purple-300"]};
+    color: ${({ theme }) => theme["purple-300"]};
     margin-right: 4px;
   }
+`
+
+export const FinishContainer = styled.div`
+  
+  max-width: 70rem;
+`
+
+export const FinishInfos = styled.div``
+
+export const FinishOrderTitle = styled.div`
+  h4 {
+    font-family: 'Baloo 2', cursive;
+    font-size: 2rem;
+    font-weight: bold;
+    color: ${({ theme }) => theme["yellow-500"]};
+  }
+  h6 {
+    font-size: 1.25rem;
+    font-weight: normal;
+  }
+  margin-bottom: 40px;
+`
+
+export const FinishOrderItems = styled.div`
+  padding: 1px;
+  background-image: linear-gradient(to right, ${({ theme }) => theme["yellow-300"]}, ${({ theme }) => theme["purple-300"]});
+  border-radius: 6px 36px 6px 36px;
+  
+  & > div {
+    display: flex;
+    flex-direction: column;
+    background-color: ${({ theme }) => theme["background"]};
+    padding: 40px;
+    gap: 32px;
+    border-radius: 4px 34px 4px 34px;
+  }
+
+  & > div > div {
+    display: flex;
+    align-items: center;
+    
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius:50%;
+      height: 32px;
+      width: 32px;
+      color: ${({ theme }) => theme["white"]};
+      margin-right: 12px;
+    }
+
+    :nth-child(1) span {
+      background-color: ${({ theme }) => theme["purple-300"]};
+    }
+    :nth-child(2) span {
+      background-color: ${({ theme }) => theme["yellow-300"]};
+    }
+    :nth-child(3) span {
+      background-color: ${({ theme }) => theme["yellow-500"]};
+    }
+  }
+`
+
+export const FinishWrapper = styled.div`
+  padding: 40px 0px;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: end;
+  max-width: 70rem;
 `

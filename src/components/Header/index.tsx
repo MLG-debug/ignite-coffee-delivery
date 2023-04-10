@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { LogoImage } from '../../constants/images'
 import { MapPin, ShoppingCartSimple } from 'phosphor-react'
 import {
@@ -9,11 +9,11 @@ import {
   InfosWrapper,
 } from './styles'
 import { useNavigate } from 'react-router-dom'
+import { CartContext } from '../../contexts/CartContext'
 
 export const Header = () => {
-  const [cartItems, setCartItems] = useState(1)
-  const [address, setAddress] = useState('Porto Alegre, RS')
 
+  const { coffees, address } = useContext(CartContext)
   const navigate = useNavigate()
 
   const handleNavigateToHome = () => {
@@ -33,13 +33,13 @@ export const Header = () => {
           {address && (
             <AddressContainer>
               <MapPin size={22} weight="fill" />
-              <h5>{address}</h5>
+              <h5>{address.city}, {address.state}</h5>
             </AddressContainer>
           )}
           <div>
             <CartButton onClick={handleNavigateToCheckout}>
               <ShoppingCartSimple size={22} weight="fill" />
-              {cartItems !== 0 && <span>{1}</span>}
+              {coffees.length !== 0 && <span>{coffees.length}</span>}
             </CartButton>
           </div>
         </InfosWrapper>

@@ -1,23 +1,36 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ICoffee } from '../../../../constants/coffees'
 import { QuantityWrapper } from '../../../Home/components/Coffee/styles'
 import { CoffeeWrapper, CoffeeInfos, RemoveButtonWrapper, ButtonsWrapper, CoffeeContent } from '../../styles'
 import { Trash } from 'phosphor-react'
 import { ISelectedCoffee } from '../..'
+import { CartContext } from '../../../../contexts/CartContext'
 
 export const SelectedCoffee = ({ id, name, price, image, quantity: actualQuantity }: ISelectedCoffee) => {
   const [quantity, setQuantity] = useState(actualQuantity)
 
+  const { changeQuantityItem, removeCoffeeFromCart } = useContext(CartContext)
+
   const increaseQuantity = () => {
     if (quantity < 99) {
-      setQuantity((state) => state + 1)
+      setQuantity((state) => {
+        changeQuantityItem(id, state + 1)
+        return state + 1
+      })
     }
   }
 
   const decreaseQuantity = () => {
     if (quantity > 1) {
-      setQuantity((state) => state - 1)
+      setQuantity((state) => {
+        changeQuantityItem(id, state - 1)
+        return state - 1
+      })
     }
+  }
+
+  const handleRemoveCoffee = () => {
+    removeCoffeeFromCart(id)
   }
 
   return (
@@ -35,7 +48,7 @@ export const SelectedCoffee = ({ id, name, price, image, quantity: actualQuantit
               <button onClick={increaseQuantity}>+</button>
             </QuantityWrapper>
             <RemoveButtonWrapper>
-              <button><Trash /> REMOVER</button>
+              <button onClick={handleRemoveCoffee}><Trash /> REMOVER</button>
             </RemoveButtonWrapper>
           </ButtonsWrapper>
         </CoffeeContent>
