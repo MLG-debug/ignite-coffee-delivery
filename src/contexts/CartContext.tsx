@@ -1,65 +1,78 @@
-import React, { ReactNode, createContext, useEffect, useState } from 'react'
+import React, { ReactNode, createContext, useEffect, useReducer, useState } from 'react'
 import { coffees as coffeesData } from '../constants/coffees'
-import { ISelectedCoffee } from '../pages/Checkout'
-
-export interface IAddress {
-  cep: string
-  address: string
-  number: number
-  description: string
-  district: string
-  city: string
-  state: string
-}
+import { ICustomer, ISelectedCoffee, cartReducer } from '../reducers/cart/reducer'
+import { addCoffeeToCartAction, changeCoffeeQuantityAction, finishOrderAction, removeCoffeeFromCartAction } from '../reducers/cart/actions'
 
 interface CartContextProps {
-  address?: IAddress | null
-  addActualAddress: (address: IAddress) => void
-
-  finishOrder: (address: IAddress) => void
-
-  paymentMethod: string
-  addPaymentMethod: (paymentMethod: string) => void
-
+  customer: ICustomer | null
   coffees: ISelectedCoffee[]
+
+  finishOrder: (customerData: ICustomer) => void
   addCoffeeToCart: (id: string, quantity: number) => void
   removeCoffeeFromCart: (id: string) => void
-  changeQuantityItem: (id: string, quantity: number) => void
+  changeCoffeeQuantity: ({ coffeeId, quantity }: IChangeCoffeeQuantityProps) => void
 }
 
-export const CartContext = createContext({} as CartContextProps)
+interface IChangeCoffeeQuantityProps {
+  coffeeId: string
+  quantity: number
+}
 
 interface CartContextProviderProps {
   children: ReactNode
 }
 
+export const CartContext = createContext({} as CartContextProps)
+
 export const CartContextProvider = ({ children }: CartContextProviderProps) => {
-  const [coffees, setCoffees] = useState<ISelectedCoffee[]>(() => {
-    const coffeesExists = localStorage.getItem('@coffee-delivery:coffee-cart-1.0.0')
-    if (coffeesExists) {
-      return JSON.parse(coffeesExists)
-    } else return []
+  // usar reducer para manipular os eventos
+
+  // const [coffees, setCoffees] = useState<ISelectedCoffee[]>(() => {
+  //   const coffeesExists = localStorage.getItem('@coffee-delivery:coffee-cart-1.0.0')
+  //   if (coffeesExists) {
+  //     return JSON.parse(coffeesExists)
+  //   } else return []
+  // })
+
+  const [cartState, dispatch] = useReducer(cartReducer, {
+    coffees: [],
+    customer: null
+  }, () => {
+    let coffees: ISelectedCoffee[] = []
+    let customer = null
+
+    const customerDataStored = localStorage.getItem('@coffee-delivery:customer-data-1.0.0')
+    if (customerDataStored) {
+      customer = JSON.parse(customerDataStored)
+    }
+
+    const coffeeCartStored = localStorage.getItem('@coffee-delivery:coffee-cart-1.0.0')
+    if (coffeeCartStored) {
+      coffees = JSON.parse(coffeeCartStored)
+    }
+
+    return {
+      coffees,
+      customer
+    }
   })
 
-  const [address, setAddress] = useState<IAddress | null>(() => {
-    const addressExists = localStorage.getItem('@coffee-delivery:actual-address-1.0.0')
-    if (addressExists) {
-      return JSON.parse(addressExists)
-    } else return null
-  })
+  const { coffees, customer } = cartState;
 
-  const [paymentMethod, setPaymentMethod] = useState(() => {
-    const paymentMethodExists = localStorage.getItem('@coffee-delivery:payment-method-1.0.0')
-    if (paymentMethodExists) {
-      return JSON.parse(paymentMethodExists)
-    } else return ''
-  })
+  // const [customerData, setCustomerData] = useState<ICustomer | null>(() => {
+  // const customerDataExists = localStorage.getItem('@coffee-delivery:customer-data-1.0.0')
+  // if (customerDataExists) {
+  //   return JSON.parse(customerDataExists)
+  // } else return null
+  // })
 
   const addCoffeeToCart = (id: string, quantity: number) => {
-    const coffeeAlreadySelected = coffees.find((c) => c.id === id)
-    if (coffeeAlreadySelected) {
-      return changeQuantityItem(coffeeAlreadySelected.id, quantity)
-    }
+    // usar reducer para manipular os eventos
+
+    // const coffeeAlreadySelected = coffees.find((c) => c.id === id)
+    // if (coffeeAlreadySelected) {
+    //   return changeItemQuantity(coffeeAlreadySelected.id, quantity)
+    // }
 
     const coffee = coffeesData.find((c) => c.id === id)
     if (coffee) {
@@ -67,79 +80,75 @@ export const CartContextProvider = ({ children }: CartContextProviderProps) => {
         ...coffee,
         quantity
       }
-      setCoffees((state) => [...state, selectedCoffee])
+      dispatch(addCoffeeToCartAction(selectedCoffee))
+      // setCoffees((state) => [...state, selectedCoffee])
     }
   }
 
-  const removeCoffeeFromCart = (id: string) => {
-    if (coffees.length !== 0) {
-      const coffee = coffees.find((c) => c.id === id)
-      if (coffee) {
-        setCoffees((state) => state.filter(c => c.id !== id))
-      }
-    }
+  const removeCoffeeFromCart = (coffeeId: string) => {
+    // usar reducer para manipular os eventos
+
+    // if (coffees.length !== 0) {
+    //   const coffee = coffees.find((c) => c.id === id)
+    //   if (coffee) {
+    //     setCoffees((state) => state.filter(c => c.id !== id))
+    //   }
+    // }
+    dispatch(removeCoffeeFromCartAction(coffeeId))
   }
 
-  const changeQuantityItem = (id: string, quantity: number) => {
-    const coffee = coffees.find((c) => c.id === id)
-    if (coffee) {
-      setCoffees((state) =>
-        state.filter(c => {
-          if (c.id === id) {
-            c.quantity = quantity;
-            return c
-          } else return c
-        })
-      )
-    }
+  const changeCoffeeQuantity = ({ coffeeId, quantity }: IChangeCoffeeQuantityProps) => {
+    // usar reducer para manipular os eventos
+
+    // const coffee = coffees.find((c) => c.id === id)
+    // if (coffee) {
+    dispatch(changeCoffeeQuantityAction({ coffeeId, quantity }))
+    // setCoffees((state) =>
+    //   state.filter(c => {
+    //     if (c.id === id) {
+    //       c.quantity = quantity;
+    //       return c
+    //     } else return c
+    //   })
+    // )
+    // }
   }
 
-  const addActualAddress = (actualAddress: IAddress) => {
-    setAddress(actualAddress);
-  }
+  const finishOrder = (customerData: ICustomer) => {
+    // usar reducer para manipular os eventos
 
-  const finishOrder = (actualAddress: IAddress) => {
-    addActualAddress(actualAddress)
-    setCoffees([])
+    // addActualAddress(actualAddress)
+    // setCoffees([])
+    dispatch(finishOrderAction(customerData))
     localStorage.removeItem('@coffee-delivery:coffee-cart-1.0.0')
   }
 
-  const addPaymentMethod = (paymentMethod: string) => {
-    setPaymentMethod(paymentMethod)
-  }
+  useEffect(() => {
+    // salvando os dados do cliente no local storage
+
+    if (customer) {
+      const stateJSON = JSON.stringify(customer)
+      localStorage.setItem('@coffee-delivery:customer-data-1.0.0', stateJSON)
+    }
+  }, [customer])
 
   useEffect(() => {
-    if (address) {
-      localStorage.setItem('@coffee-delivery:actual-address-1.0.0', JSON.stringify(address))
-    }
-  }, [address])
+    // salvando os dados do carrinho no local storage
 
-  useEffect(() => {
-    if (paymentMethod.length !== 0) {
-      localStorage.setItem('@coffee-delivery:payment-method-1.0.0', JSON.stringify(paymentMethod))
-    }
-  }, [paymentMethod])
-
-  useEffect(() => {
-    if (coffees.length !== 0) {
-      localStorage.setItem('@coffee-delivery:coffee-cart-1.0.0', JSON.stringify(coffees))
-    }
+    const stateJSON = JSON.stringify(coffees)
+    localStorage.setItem('@coffee-delivery:coffee-cart-1.0.0', stateJSON)
   }, [coffees])
 
   return (
     <CartContext.Provider
       value={{
-        address,
-        addActualAddress,
+        customer,
         finishOrder,
-
-        paymentMethod,
-        addPaymentMethod,
 
         coffees,
         addCoffeeToCart,
         removeCoffeeFromCart,
-        changeQuantityItem
+        changeCoffeeQuantity
       }}
     >
       {children}

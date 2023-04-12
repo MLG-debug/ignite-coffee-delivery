@@ -1,20 +1,19 @@
 import React, { useContext, useState } from 'react'
-import { ICoffee } from '../../../../constants/coffees'
 import { QuantityWrapper } from '../../../Home/components/Coffee/styles'
 import { CoffeeWrapper, CoffeeInfos, RemoveButtonWrapper, ButtonsWrapper, CoffeeContent } from '../../styles'
 import { Trash } from 'phosphor-react'
-import { ISelectedCoffee } from '../..'
 import { CartContext } from '../../../../contexts/CartContext'
+import { ISelectedCoffee } from '../../../../reducers/cart/reducer'
 
 export const SelectedCoffee = ({ id, name, price, image, quantity: actualQuantity }: ISelectedCoffee) => {
   const [quantity, setQuantity] = useState(actualQuantity)
 
-  const { changeQuantityItem, removeCoffeeFromCart } = useContext(CartContext)
+  const { removeCoffeeFromCart, changeCoffeeQuantity } = useContext(CartContext)
 
   const increaseQuantity = () => {
     if (quantity < 99) {
       setQuantity((state) => {
-        changeQuantityItem(id, state + 1)
+        changeCoffeeQuantity({coffeeId: id, quantity: state + 1})
         return state + 1
       })
     }
@@ -23,7 +22,7 @@ export const SelectedCoffee = ({ id, name, price, image, quantity: actualQuantit
   const decreaseQuantity = () => {
     if (quantity > 1) {
       setQuantity((state) => {
-        changeQuantityItem(id, state - 1)
+        changeCoffeeQuantity({coffeeId: id, quantity: state - 1})
         return state - 1
       })
     }

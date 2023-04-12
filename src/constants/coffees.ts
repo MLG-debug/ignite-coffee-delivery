@@ -1,11 +1,4 @@
-export interface ICoffee {
-  id: string
-  name: string
-  description: string
-  types: string[]
-  price: number
-  image: string
-}
+import { ICoffee } from "../reducers/cart/reducer";
 
 export const coffees: ICoffee[] = [
   {

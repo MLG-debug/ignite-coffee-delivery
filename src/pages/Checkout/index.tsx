@@ -1,37 +1,34 @@
 import { Bank, Clock, CreditCard, CurrencyDollar, MapPin, MapPinLine, Money, ShoppingCartSimple } from 'phosphor-react'
 import React, { useContext, useEffect, useState } from 'react'
-import { ICoffee, coffees as coffeesData } from '../../constants/coffees'
-import { AddressInputs, AddressTitle, AddressWrapper, ButtonWrapper, CartWrapper, CheckoutContainer, CheckoutWrapper, CoffeeInfos, CoffeeWrapper, CoffeesWrapper, EmptyTitle, FinishContainer, FinishInfos, FinishOrderItems, FinishOrderTitle, FinishWrapper, PaymentButton, PaymentButtons, PaymentTitle, PaymentWrapper, PriceWrapper, SectionWrapper } from './styles'
+import { AddressInputs, AddressTitle, AddressWrapper, ButtonWrapper, CartWrapper, CheckoutContainer, CheckoutWrapper, CoffeesWrapper, EmptyTitle, FinishInfos, FinishOrderItems, FinishOrderTitle, FinishWrapper, PaymentButtons, PaymentLabel, PaymentTitle, PaymentWrapper, PriceWrapper, SectionWrapper } from './styles'
 import { SelectedCoffee } from './components/SelectedCoffee'
 import { getRandomInt } from '../../helpers/getRandomInt'
 import { sumPrices } from '../../helpers/sumPrices'
-import { CartContext, IAddress } from '../../contexts/CartContext'
+import { CartContext } from '../../contexts/CartContext'
 import { useForm } from 'react-hook-form'
 import { successCheckout } from '../../constants/images'
-
-export interface ISelectedCoffee extends ICoffee {
-  quantity: number
-}
+import { ICustomer, PaymentMethods } from '../../reducers/cart/reducer'
 
 let deliveryPrice = 0.3 * getRandomInt(30)
 
 export const Checkout = () => {
   const [finishedOrder, setFinishedOrder] = useState(false)
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethods>('Cartão de crédito');
 
-  const { coffees, finishOrder, address, paymentMethod, addPaymentMethod } = useContext(CartContext)
+  const { coffees, customer, finishOrder } = useContext(CartContext)
   const { handleSubmit, register, reset } = useForm()
-  
+
   let totalPriceItems = coffees?.length !== 0 ? sumPrices(coffees) : 0.0
   let totalPrice = totalPriceItems + deliveryPrice
 
   useEffect(() => {
-    const addressExists = localStorage.getItem('@coffee-delivery:actual-address-1.0.0')
-    if (addressExists) {
-      reset(JSON.parse(addressExists))
+    if (customer) {
+      reset(customer)
+      setSelectedPaymentMethod(customer.paymentMethod)
     }
   }, [])
 
-  if (finishedOrder && address) {
+  if (finishedOrder && customer) {
     return (
       <CheckoutContainer>
         <FinishWrapper>
@@ -47,8 +44,8 @@ export const Checkout = () => {
                     <MapPin size={16} />
                   </span>
                   <div>
-                    <p>Entrega em <strong>{address.address}, {address.number}</strong></p>
-                    <p>{address.district} - {address.city}, {address.state}</p>
+                    <p>Entrega em <strong>{customer.address}, {customer.number}</strong></p>
+                    <p>{customer.district} - {customer.city}, {customer.state}</p>
                   </div>
                 </div>
                 <div>
@@ -66,7 +63,7 @@ export const Checkout = () => {
                   </span>
                   <div>
                     <p>Pagamento na entrega</p>
-                    <p><strong>{paymentMethod}</strong></p>
+                    <p><strong>{customer.paymentMethod}</strong></p>
                   </div>
                 </div>
               </div>
@@ -92,18 +89,23 @@ export const Checkout = () => {
     )
   }
 
+  const handleButtonClick = (value: PaymentMethods) => {
+    setSelectedPaymentMethod(value);
+  };
+
   const onSubmit = (e: any) => {
-    const address: IAddress = {
-      cep: e.cep,
-      address: e.address,
-      city: e.city,
-      description: e.description,
-      district: e.district,
-      number: e.number,
-      state: e.state,
-    }
-    if(paymentMethod){
-      finishOrder(address)
+    if (selectedPaymentMethod) {
+      const customerData: ICustomer = {
+        cep: e.cep,
+        address: e.address,
+        city: e.city,
+        description: e.description,
+        district: e.district,
+        number: e.number,
+        state: e.state,
+        paymentMethod: selectedPaymentMethod
+      }
+      finishOrder(customerData)
       setFinishedOrder(true)
     }
   }
@@ -121,7 +123,7 @@ export const Checkout = () => {
                 <h3>Informe o endereço onde deseja receber seu pedido</h3>
               </div>
             </AddressTitle>
-            <AddressInputs id='addressForm' onSubmit={handleSubmit(onSubmit)}>
+            <AddressInputs id='finishOrderForm' onSubmit={handleSubmit(onSubmit)}>
               <input placeholder='CEP' type="number" {...register('cep', { required: true })} />
 
               <input placeholder='Rua' type="text" {...register('address', { required: true })} />
@@ -144,9 +146,18 @@ export const Checkout = () => {
               </div>
             </PaymentTitle>
             <PaymentButtons>
-              <PaymentButton value={paymentMethod === 'Cartão de crédito' ? 'true': 'false'} onClick={() => addPaymentMethod('Cartão de crédito')}><CreditCard size={16} />CARTÃO DE CRÉDITO</PaymentButton>
-              <PaymentButton value={paymentMethod === 'Cartão de débito' ? 'true': 'false'} onClick={() => addPaymentMethod('Cartão de débito')}><Bank size={16} />CARTÃO DE DÉBITO</PaymentButton>
-              <PaymentButton value={paymentMethod === 'Dinheiro' ? 'true': 'false'} onClick={() => addPaymentMethod('Dinheiro')}><Money size={16} />DINHEIRO</PaymentButton>
+              <PaymentLabel htmlFor="option1">
+                <input hidden checked={selectedPaymentMethod === 'Cartão de crédito'} id="option1" form='finishOrderForm' type='radio' />
+                <button type="button" onClick={() => handleButtonClick('Cartão de crédito')}><CreditCard size={16} />Cartão de crédito</button>
+              </PaymentLabel>
+              <PaymentLabel htmlFor="option2">
+                <input hidden checked={selectedPaymentMethod === 'Cartão de débito'} id="option2" form='finishOrderForm' type='radio' />
+                <button type="button" onClick={() => handleButtonClick('Cartão de débito')}><Bank size={16} />Cartão de débito</button>
+              </PaymentLabel>
+              <PaymentLabel htmlFor="option3">
+                <input hidden checked={selectedPaymentMethod === 'Dinheiro'} id="option3" form='finishOrderForm' type='radio' />
+                <button type="button" onClick={() => handleButtonClick('Dinheiro')}><Money size={16} />Dinheiro</button>
+              </PaymentLabel>
             </PaymentButtons>
           </PaymentWrapper>
         </SectionWrapper>
@@ -178,7 +189,7 @@ export const Checkout = () => {
               </div>
             </PriceWrapper>
             <ButtonWrapper>
-              <button type='submit' form='addressForm'>CONFIRMAR PEDIDO</button>
+              <button type='submit' form='finishOrderForm'>CONFIRMAR PEDIDO</button>
             </ButtonWrapper>
           </CartWrapper>
         </SectionWrapper>

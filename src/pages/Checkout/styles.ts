@@ -205,10 +205,17 @@ export const PaymentButtons = styled.div`
 
 `
 
-export const PaymentButton = styled.button`
-    background-color: ${({ theme, value }) => value === 'true' ? theme["purple-100"]: theme["gray-300"]};
-    border: 1px solid ${({ theme, value }) => value === 'true' ? theme["purple-300"] : 'transparent'};
-  `
+export const PaymentLabel = styled.label`
+  button {
+    background-color: ${({ theme }) => theme["gray-300"]};
+    border: 1px solid transparent;
+  }
+
+  input:checked + button {
+    background-color: ${({ theme }) => theme["purple-100"]};
+    border: 1px solid ${({ theme }) => theme["purple-300"]};
+  }
+`
 
 export const CartWrapper = styled.div`
   border-radius: 6px 44px 6px 44px ;
