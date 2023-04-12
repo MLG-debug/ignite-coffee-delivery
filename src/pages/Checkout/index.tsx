@@ -147,15 +147,15 @@ export const Checkout = () => {
             </PaymentTitle>
             <PaymentButtons>
               <PaymentLabel htmlFor="option1">
-                <input hidden checked={selectedPaymentMethod === 'Cartão de crédito'} id="option1" form='finishOrderForm' type='radio' />
+                <input hidden readOnly checked={selectedPaymentMethod === 'Cartão de crédito'} id="option1" form='finishOrderForm' type='radio' />
                 <button type="button" onClick={() => handleButtonClick('Cartão de crédito')}><CreditCard size={16} />Cartão de crédito</button>
               </PaymentLabel>
               <PaymentLabel htmlFor="option2">
-                <input hidden checked={selectedPaymentMethod === 'Cartão de débito'} id="option2" form='finishOrderForm' type='radio' />
+                <input hidden readOnly checked={selectedPaymentMethod === 'Cartão de débito'} id="option2" form='finishOrderForm' type='radio' />
                 <button type="button" onClick={() => handleButtonClick('Cartão de débito')}><Bank size={16} />Cartão de débito</button>
               </PaymentLabel>
               <PaymentLabel htmlFor="option3">
-                <input hidden checked={selectedPaymentMethod === 'Dinheiro'} id="option3" form='finishOrderForm' type='radio' />
+                <input hidden readOnly checked={selectedPaymentMethod === 'Dinheiro'} id="option3" form='finishOrderForm' type='radio' />
                 <button type="button" onClick={() => handleButtonClick('Dinheiro')}><Money size={16} />Dinheiro</button>
               </PaymentLabel>
             </PaymentButtons>

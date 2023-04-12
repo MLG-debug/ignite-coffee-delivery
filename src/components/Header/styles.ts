@@ -44,6 +44,10 @@ export const HeaderContainer = styled.div`
   height: 100px;
   max-width: 70rem;
   margin: 0rem auto;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
 `
 
 export const InfosWrapper = styled.div`

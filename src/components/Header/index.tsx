@@ -13,7 +13,7 @@ import { CartContext } from '../../contexts/CartContext'
 
 export const Header = () => {
 
-  const { coffees, address } = useContext(CartContext)
+  const { coffees, customer } = useContext(CartContext)
   const navigate = useNavigate()
 
   const handleNavigateToHome = () => {
@@ -30,10 +30,10 @@ export const Header = () => {
           <img src={LogoImage} alt="Imagem da logo da cafeteria" />
         </span>
         <InfosWrapper>
-          {address && (
+          {customer && (
             <AddressContainer>
               <MapPin size={22} weight="fill" />
-              <h5>{address.city}, {address.state}</h5>
+              <h5>{customer.city}, {customer.state}</h5>
             </AddressContainer>
           )}
           <div>

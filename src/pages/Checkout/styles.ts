@@ -4,6 +4,9 @@ export const CheckoutContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
 `
 
 export const CheckoutWrapper = styled.div`
@@ -12,6 +15,11 @@ export const CheckoutWrapper = styled.div`
   flex: 1;
   justify-content: space-between;
   max-width: 70rem;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px
+  }
 `
 
 export const EmptyTitle = styled.div`
@@ -90,16 +98,6 @@ export const AddressInputs = styled.form`
   /* grid-template-columns: 200px 348px 276px; */
   grid-template-columns: 1fr 1.25fr 0.5fr;
   grid-gap: 10px;
-
-  @media (max-width: 750px) {
-    grid-template-columns: auto;
-  }
-
-  /* div {
-    display: flex;
-    flex-direction:row;
-    gap:1rem;
-  } */
 
   input {
     width: 100%;
@@ -201,6 +199,15 @@ export const PaymentButtons = styled.div`
 
     outline: 0;
     min-width: 180px;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 12px
   }
 
 `
@@ -238,12 +245,17 @@ export const CoffeeInfos = styled.div`
 
   img {
     margin-right: 20px;
+    @media (max-width: 768px) {
+      width: 56px;
+    }
   }
 
   h5 {
     font-size: 1rem;
     font-weight: normal;
   }
+
+  
 `
 
 export const CoffeeWrapper = styled.div`
@@ -313,6 +325,12 @@ export const ButtonsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  gap: 8px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: start;
+  }
 `
 
 export const RemoveButtonWrapper = styled.div`
@@ -328,7 +346,6 @@ export const RemoveButtonWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 8px;
     cursor: pointer;
   }
 
@@ -339,7 +356,6 @@ export const RemoveButtonWrapper = styled.div`
 `
 
 export const FinishContainer = styled.div`
-  
   max-width: 70rem;
 `
 
@@ -347,6 +363,7 @@ export const FinishInfos = styled.div``
 
 export const FinishOrderTitle = styled.div`
   h4 {
+    line-height: 130%;
     font-family: 'Baloo 2', cursive;
     font-size: 2rem;
     font-weight: bold;
@@ -382,8 +399,8 @@ export const FinishOrderItems = styled.div`
       justify-content: center;
       align-items: center;
       border-radius:50%;
-      height: 32px;
-      width: 32px;
+      min-height: 32px;
+      min-width: 32px;
       color: ${({ theme }) => theme["white"]};
       margin-right: 12px;
     }
@@ -407,4 +424,14 @@ export const FinishWrapper = styled.div`
   justify-content: space-between;
   align-items: end;
   max-width: 70rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    /* padding: 16px; */
+    align-items: center;
+    img {
+      margin-top: 16px;
+      width: 284px;
+    }
+  }
 `

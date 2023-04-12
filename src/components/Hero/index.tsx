@@ -5,6 +5,7 @@ import {
   HeroBackground,
   HeroContainer,
   HeroIconsWrapper,
+  HeroImageWrapper,
   TextWrapper,
   TitleWrapper,
 } from './styles'
@@ -48,13 +49,13 @@ export const Hero = () => {
             </span>
           </HeroIconsWrapper>
         </TextWrapper>
-        <div>
+        <HeroImageWrapper>
           <img
             src={heroImage}
             width={476}
             alt="Imagem ilustrativa de um café"
           />
-        </div>
+        </HeroImageWrapper>
       </HeroContainer>
     </HeroBackground>
   )

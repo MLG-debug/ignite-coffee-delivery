@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import { ICoffee } from '../../../../constants/coffees'
 import { ShoppingCartSimple } from 'phosphor-react'
 import {
   CoffeeContainer,
@@ -13,6 +12,7 @@ import {
   CoffeeImageWrapper,
 } from './styles'
 import { CartContext } from '../../../../contexts/CartContext'
+import { ICoffee } from '../../../../reducers/cart/reducer'
 
 export const Coffee = ({
   description,

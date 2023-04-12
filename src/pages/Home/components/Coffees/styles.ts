@@ -16,12 +16,18 @@ export const CoffeesContainer = styled.div`
 `
 export const CoffeesWrapper = styled.div`
   max-width: 70rem;
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
 `
 
 export const ItemsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  /* justify-content: center; */
   align-items: center;
   gap: 32px;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
 `

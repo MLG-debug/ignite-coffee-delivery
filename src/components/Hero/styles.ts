@@ -9,6 +9,7 @@ export const HeroBackground = styled.div`
   justify-content: center;
   align-items: center;
   height: 70vh;
+  padding: 16px;
 `
 
 export const HeroContainer = styled.div`
@@ -38,15 +39,30 @@ export const TitleWrapper = styled.div`
   h4 {
     font-style: normal;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 1.25rem;
     line-height: 130%;
     color: ${({ theme }) => theme['brown-400']};
+    margin-bottom: 16px;
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    } 
+    h4 {
+      font-size: 1rem;
+    }
   }
 `
 export const HeroIconsWrapper = styled.div`
   display: grid;
   grid-template-columns: 300px 300px;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 
   h6 {
     font-size: 1rem;
@@ -81,6 +97,15 @@ export const HeroIconsWrapper = styled.div`
     }
     :nth-child(4) div {
       background-color: ${({ theme }) => theme['purple-300']};
+    }
+  }
+`
+
+export const HeroImageWrapper = styled.div`
+  img {
+    display: flex;
+    @media (max-width: 768px) {
+      display: none;
     }
   }
 `
